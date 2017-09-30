@@ -20,14 +20,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select users.username, users.password, users.enabled from dimension.users users\n" +
-                        "join dimension.user_roles ur on ur.dimension_user_id = users.id\n" +
-                        "join dimension.roles r on r.id = ur.dimension_role_id\n" +
-                        "where users.username = ?")
-                .authoritiesByUsernameQuery("select users.username, r.role from dimension.users users\n" +
-                        "  join dimension.user_roles ur on ur.dimension_user_id = users.id\n" +
-                        "  join dimension.roles r on r.id = ur.dimension_role_id\n" +
-                        "where users.username = ?");
+                .usersByUsernameQuery("SELECT\n" +
+                        "  users.username,\n" +
+                        "  users.password,\n" +
+                        "  users.enabled\n" +
+                        "FROM keystone.user_auth users\n" +
+                        "WHERE users.username = ?;")
+                .authoritiesByUsernameQuery("SELECT\n" +
+                        "  users.username,\n" +
+                        "  r.role\n" +
+                        "FROM keystone.user_auth users\n" +
+                        "  JOIN keystone.user_role ur ON ur.dimension_user_id = users.id\n" +
+                        "  JOIN keystone.role r ON r.id = ur.role_id\n" +
+                        "WHERE users.username = ?");
     }
 
     @Override
