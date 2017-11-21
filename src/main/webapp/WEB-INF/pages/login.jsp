@@ -37,8 +37,6 @@
 </head>
 <body onload='document.loginForm.username.focus();'>
 
-	<h1>Spring Security Login Form (Database Authentication)</h1>
-
 	<div id="login-box">
 
 		<h3>Login with Username and Password</h3>
@@ -51,7 +49,7 @@
 		</c:if>
 
 		<form name='loginForm'
-			action="<c:url value='/login' />" method='POST'>
+			action="<c:url value='/auth' />" method='POST'>
 
 			<table>
 				<tr>
@@ -68,7 +66,7 @@
 				</tr>
 			</table>
 
-			<input type="hidden" name="${_csrf.parameterName}"
+			<input type="text" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 
 		</form>

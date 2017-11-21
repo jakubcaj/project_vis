@@ -1,24 +1,34 @@
 package com.vis.common.controller;
 
+import com.vis.common.dao.UserDao;
+import com.vis.common.domain.User;
+import com.vis.common.dto.JSONResponse;
+import com.vis.common.dto.UserProcessAwaiting;
+import com.vis.common.service.SecurityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@RestController
 public class BaseController {
 
-    @RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+    @Autowired
+    SecurityService securityService;
+
+    @Autowired
+    UserDao userDao;
+
+    @RequestMapping(value = {"/", "/welcome**"}, method = RequestMethod.GET)
     public ModelAndView defaultPage() {
 
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring Security Login Form - Database Authentication");
-        model.addObject("message", "This is default page!");
+
+//        addSecurittyContext(model);
         model.setViewName("hello");
         return model;
 
@@ -48,7 +58,7 @@ public class BaseController {
         if (logout != null) {
             model.addObject("msg", "You've been logged out successfully.");
         }
-        model.setViewName("login");
+        model.setViewName("hello");
 
         return model;
 
@@ -67,13 +77,30 @@ public class BaseController {
             System.out.println(userDetail);
 
             model.addObject("username", userDetail.getUsername());
-
         }
-
         model.setViewName("403");
         return model;
 
     }
 
+    @RequestMapping(value = "/registerUser",method = RequestMethod.POST)
+    public @ResponseBody JSONResponse registerUser(@RequestBody UserProcessAwaiting userProcessAwaiting) {
+        JSONResponse response = new JSONResponse();
 
+        return response;
+    }
+
+    @RequestMapping(value = "/successLogin", method = RequestMethod.POST)
+    public @ResponseBody User successLogin() {
+        User user = new User();
+        if(securityService.isUserAuthenticated()) {
+            user = securityService.getLoggedUser();
+        }
+        return user;
+    }
+
+    private void addSecurittyContext(ModelAndView modelAndView) {
+        modelAndView.addObject("isUserAuthenticated", securityService.isUserAuthenticated());
+        modelAndView.addObject("loggedUser", securityService.getLoggedUsername());
+    }
 }
