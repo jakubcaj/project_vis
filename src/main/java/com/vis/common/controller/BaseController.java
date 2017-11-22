@@ -5,6 +5,7 @@ import com.vis.common.domain.User;
 import com.vis.common.dto.JSONResponse;
 import com.vis.common.dto.UserProcessAwaiting;
 import com.vis.common.service.SecurityService;
+import com.vis.common.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,7 +21,7 @@ public class BaseController {
     SecurityService securityService;
 
     @Autowired
-    UserDao userDao;
+    UserService userService;
 
     @RequestMapping(value = {"/", "/welcome**"}, method = RequestMethod.GET)
     public ModelAndView defaultPage() {
@@ -83,17 +84,33 @@ public class BaseController {
 
     }
 
-    @RequestMapping(value = "/registerUser",method = RequestMethod.POST)
-    public @ResponseBody JSONResponse registerUser(@RequestBody UserProcessAwaiting userProcessAwaiting) {
+    @RequestMapping(value = "/registerUser", method = RequestMethod.POST)
+    public @ResponseBody
+    JSONResponse registerUser(@RequestBody UserProcessAwaiting userProcessAwaiting) {
         JSONResponse response = new JSONResponse();
-
+        try {
+            if(userService.isUserExisting(userProcessAwaiting.getUsername())) {
+                response.setSuccess(false);
+                response.setErrorMessage("Username is already existing.");
+            } else {
+                boolean success = userService.registerUser(userProcessAwaiting);
+                if (!success) {
+                    response.setErrorMessage("Registration failed.");
+                }
+                response.setSuccess(success);
+            }
+        } catch (Exception e) {
+            response.setSuccess(false);
+            response.setErrorMessage("There was an unexpected error during registration.");
+        }
         return response;
     }
 
     @RequestMapping(value = "/successLogin", method = RequestMethod.POST)
-    public @ResponseBody User successLogin() {
+    public @ResponseBody
+    User successLogin() {
         User user = new User();
-        if(securityService.isUserAuthenticated()) {
+        if (securityService.isUserAuthenticated()) {
             user = securityService.getLoggedUser();
         }
         return user;

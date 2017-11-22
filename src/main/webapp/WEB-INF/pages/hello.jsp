@@ -13,6 +13,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <link href="/resources/css/general.css" rel="stylesheet">
 <script src="/resources/js/indexController.js" rel="script"></script>
 <body>
@@ -72,12 +74,12 @@
     </ul>
     <div class="tab-content">
         <div id="loginTab" class="tab-pane fade in active">
-            <form class="form-group" name="loginForm" action="/auth" method="post">
+            <form class="form-group" name="loginForm" action="/auth" method="post" onsubmit="return validateLoginForm()">
                 <label for="username">Username:</label>
                 <input class="form-control" type="text" id="username" name="username">
                 <label for="password">Password:</label>
                 <input class="form-control" type="password" id="password" name="password">
-                <button class="btn btn-primary" type="submit">Submit</button>
+                <button class="btn btn-primary subButton" type="submit">Submit</button>
             </form>
         </div>
         <div id="registerTab" class="tab-pane fade">
@@ -91,7 +93,7 @@
             <input class="form-control" type="text" id="regUsername" >
             <label for="regPassword">Password:</label>
             <input class="form-control" type="password" id="regPassword">
-            <button class="btn btn-primary subButton" onclick="test()" id="regSubmit">Submit</button>
+            <button type="button" class="btn btn-primary subButton" onclick="registerForm()" id="regSubmit">Submit</button>
         </div>
     </div>
 </div>

@@ -7,7 +7,9 @@ import com.vis.common.dto.UserProcessAwaiting;
 import com.vis.common.service.SecurityService;
 import com.vis.common.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -16,12 +18,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     SecurityService securityService;
 
+    @Override
     public boolean isUserExisting(String userName) {
         return userDao.getUserByUsername(userName) != null;
     }
 
-    public User registerUser(UserProcessAwaiting userProcessAwaiting) {
+    @Override
+    public boolean registerUser(UserProcessAwaiting userProcessAwaiting) {
         userProcessAwaiting.setPassword(securityService.hashPassword(userProcessAwaiting.getPassword()));
-        return null;
+
+        return userDao.registerUser(userProcessAwaiting) != null;
     }
 }

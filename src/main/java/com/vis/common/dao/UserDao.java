@@ -7,5 +7,7 @@ public interface UserDao {
 
     User getUserByUsername(String username);
 
+    User getUserById(Long id);
+
     User registerUser(UserProcessAwaiting userProcessAwaiting);
 }
