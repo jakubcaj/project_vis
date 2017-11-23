@@ -20,6 +20,16 @@
     /*margin-top: 7px;*/
 }
 
+.navbar {
+    margin-bottom: 0px;
+}
+
 .subButton {
     margin-top: 10px;
+}
+
+.bodyMain {
+    border-right: solid 1px #e7e7e7;
+    border-left: solid 1px #e7e7e7;
+    height: 100%;
 }

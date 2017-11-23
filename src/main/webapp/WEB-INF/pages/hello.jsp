@@ -29,21 +29,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Police</a>
             </div>
             <div class="collapse navbar-collapse" id="headerNav">
                 <div class="row">
-                    <div class="col-lg-6 col-lg-offset-3">
-                        <%--<ul class="nav navbar-nav">--%>
+                    <div class="col-lg-3">
+                        <a class="navbar-brand" href="/">Police</a>
+                    </div>
+                    <div class="col-lg-6">
                         <sec:authorize access="hasRole('ROLE_ANONYMOUS')">
                             <form class="navbar-form navbar-right">
                                 <button class="btn btn-primary" type="button" data-toggle="popover">Log In</button>
                             </form>
                         </sec:authorize>
                         <sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
-                            <%--<form class="navbar-form navbar-right" action="<c:url value='/logout'/>" method="post">--%>
-                            <%--<button type="submit" name="submit" class="btn btn-primary">Log Out</button>--%>
-                            <%--</form>--%>
                             <sec:authentication var="principal" property="principal"/>
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown">
@@ -51,8 +49,8 @@
                                        aria-haspopup="true" aria-expanded="false">${principal.username}
                                         <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
+                                        <li><a href="/editProfile">Edit Profile</a></li>
                                         <li><a href="/logout">Log out</a></li>
-                                        <li><a href="#">Another action</a></li>
                                         <li><a href="#">Something else here</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="#">Separated link</a></li>
@@ -60,12 +58,16 @@
                                 </li>
                             </ul>
                         </sec:authorize>
-                        <%--</ul>--%>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 bodyMain">
+
+    </div>
 </div>
 <div style="display: none" id="loginPopOver">
     <ul class="nav nav-tabs">

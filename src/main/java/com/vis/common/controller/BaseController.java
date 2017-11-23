@@ -106,18 +106,5 @@ public class BaseController {
         return response;
     }
 
-    @RequestMapping(value = "/successLogin", method = RequestMethod.POST)
-    public @ResponseBody
-    User successLogin() {
-        User user = new User();
-        if (securityService.isUserAuthenticated()) {
-            user = securityService.getLoggedUser();
-        }
-        return user;
-    }
 
-    private void addSecurittyContext(ModelAndView modelAndView) {
-        modelAndView.addObject("isUserAuthenticated", securityService.isUserAuthenticated());
-        modelAndView.addObject("loggedUser", securityService.getLoggedUsername());
-    }
 }

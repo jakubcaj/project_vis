@@ -149,6 +149,22 @@
                 </dependencies>
             </plugin>
             <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>4.2.0</version>
+                <configuration>
+                    <driver>org.postgresql.Driver</driver>
+                    <locations>
+                        <location>migrations</location>
+                    </locations>
+                    <schemas>
+                        <schema>public</schema>
+                    </schemas>
+                    <cleanDisabled>true</cleanDisabled>
+                    <configFile>${project.basedir}/src/main/resources/application.properties</configFile>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
                 <version>1.0.0</version>
