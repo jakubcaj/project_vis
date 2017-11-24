@@ -7,6 +7,7 @@ import com.mysema.query.sql.RelationalPath;
 import com.mysema.query.sql.SQLQuery;
 import com.mysema.query.sql.SQLTemplates;
 import com.mysema.query.sql.dml.SQLInsertClause;
+import com.mysema.query.sql.dml.SQLUpdateClause;
 import com.vis.common.dataMapper.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,6 +45,15 @@ public class BaseDao {
     SQLInsertClause getSqlInsertClause(RelationalPath entity) {
         try {
             return new SQLInsertClause(dataSource.getConnection(), dialect, entity);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    SQLUpdateClause getSqlUpdateClause(RelationalPath entity) {
+        try {
+            return new SQLUpdateClause(dataSource.getConnection(), dialect, entity);
         } catch (SQLException e) {
             e.printStackTrace();
         }

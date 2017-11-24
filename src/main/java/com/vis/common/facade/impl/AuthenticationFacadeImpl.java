@@ -10,8 +10,6 @@ public class AuthenticationFacadeImpl  implements AuthenticationFacade {
 
     @Override
     public Authentication getAuthentication() {
-//        DataSource dataSource = (DataSource)ApplicationContextProvider.getApplicationContext().getBean("dataSource");
-//        getJdb
         return SecurityContextHolder.getContext().getAuthentication();
     }
 }

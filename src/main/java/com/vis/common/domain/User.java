@@ -7,6 +7,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String fullName;
+    private String email;
     private String username;
 
     public Long getId() {
@@ -47,5 +48,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

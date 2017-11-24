@@ -12,7 +12,7 @@ public class UserMapper extends AbstractBaseMapper implements BaseMapper<User> {
 
     private static final QSQLUser user = QSQLUser.user;
 
-    public static Expression[] projection = {user.id, user.firstName, user.lastName, user.username, user.fullName};
+    public static Expression[] projection = {user.id, user.firstName, user.lastName, user.username, user.fullName, user.email};
 
     @Override
     public SQLQuery getQuery(SQLQuery query) {
@@ -28,6 +28,7 @@ public class UserMapper extends AbstractBaseMapper implements BaseMapper<User> {
         resultUser.setLastName(tuple.get(user.lastName));
         resultUser.setUsername(tuple.get(user.username));
         resultUser.setFullName(tuple.get(user.fullName));
+        resultUser.setEmail(tuple.get(user.email));
         return resultUser;
     }
 

@@ -52,6 +52,19 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         return getUserById(id);
     }
 
+    @Override
+    public User updateUser(UserProcessAwaiting userProcessAwaiting, Long id) {
+
+        getSqlUpdateClause(user)
+                .set(user.username, userProcessAwaiting.getUsername())
+                .set(user.firstName, userProcessAwaiting.getFirstName())
+                .set(user.lastName, userProcessAwaiting.getLastName())
+                .set(user.email, userProcessAwaiting.getEmail())
+                .where(user.id.eq(id)).execute();
+
+        return getUserById(id);
+    }
+
     private void registerUserAuth(Long id, UserProcessAwaiting userP) {
         getSqlInsertClause(userAuth)
                 .columns(userAuth.dimensionUserId, userAuth.username, userAuth.password)
@@ -70,5 +83,6 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
         return getSingleResult(query, (tuple -> tuple.get(role.id)),role.id);
     }
+
 
 }

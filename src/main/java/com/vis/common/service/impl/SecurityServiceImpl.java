@@ -22,6 +22,7 @@ public class SecurityServiceImpl implements SecurityService {
     public boolean isUserAuthenticated() {
         return !authenticationFacade.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
     }
+
     @Override
     public User getLoggedUser() {
         return userDao.getUserByUsername(authenticationFacade.getAuthentication().getName());

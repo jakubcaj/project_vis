@@ -1,16 +1,11 @@
 package com.vis.common.controller;
 
-import com.vis.common.dao.UserDao;
 import com.vis.common.domain.User;
 import com.vis.common.dto.JSONResponse;
 import com.vis.common.dto.UserProcessAwaiting;
 import com.vis.common.service.SecurityService;
 import com.vis.common.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,7 +24,6 @@ public class BaseController {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring Security Login Form - Database Authentication");
 
-//        addSecurittyContext(model);
         model.setViewName("hello");
         return model;
 
@@ -47,42 +41,36 @@ public class BaseController {
 
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-                              @RequestParam(value = "logout", required = false) String logout) {
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ModelAndView editUser() {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = securityService.getLoggedUser();
 
-        ModelAndView model = new ModelAndView();
-        if (error != null) {
-            model.addObject("error", "Invalid username and password!");
-        }
-
-        if (logout != null) {
-            model.addObject("msg", "You've been logged out successfully.");
-        }
-        model.setViewName("hello");
-
-        return model;
-
+        modelAndView.addObject("firstName", user.getFirstName());
+        modelAndView.addObject("lastName", user.getLastName());
+        modelAndView.addObject("email", user.getEmail());
+        modelAndView.addObject("username", user.getUsername());
+        modelAndView.setViewName("editUser");
+        return modelAndView;
     }
 
-    //for 403 access denied page
-    @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public ModelAndView accesssDenied() {
-
-        ModelAndView model = new ModelAndView();
-
-        //check if user is login
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            System.out.println(userDetail);
-
-            model.addObject("username", userDetail.getUsername());
-        }
-        model.setViewName("403");
-        return model;
-
-    }
+//    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+//                              @RequestParam(value = "logout", required = false) String logout) {
+//
+//        ModelAndView model = new ModelAndView();
+//        if (error != null) {
+//            model.addObject("error", "Invalid username and password!");
+//        }
+//
+//        if (logout != null) {
+//            model.addObject("msg", "You've been logged out successfully.");
+//        }
+//        model.setViewName("hello");
+//
+//        return model;
+//
+//    }
 
     @RequestMapping(value = "/registerUser", method = RequestMethod.POST)
     public @ResponseBody

@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 import javax.sql.DataSource;
 
@@ -43,9 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().anyRequest().permitAll()
-//                .antMatchers("/").permitAll()
+        http.authorizeRequests()//.anyRequest().permitAll()
+//                .antMatchers("/*").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/user*/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 //                .anyRequest().access("!hasRole('ROLE_ANONYMOUS')")
                 .and()
                 .formLogin().loginProcessingUrl("/auth").failureUrl("/login?error").defaultSuccessUrl("/")
@@ -53,7 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/")
                 .and()
-                .exceptionHandling().accessDeniedPage("/403")
+                .exceptionHandling().accessDeniedPage("/")
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))
                 .and()
                 .csrf().disable();
 

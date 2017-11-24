@@ -10,4 +10,6 @@ public interface UserDao {
     User getUserById(Long id);
 
     User registerUser(UserProcessAwaiting userProcessAwaiting);
+
+    User updateUser(UserProcessAwaiting userProcessAwaiting, Long id);
 }
