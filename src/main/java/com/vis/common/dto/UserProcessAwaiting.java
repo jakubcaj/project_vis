@@ -8,6 +8,7 @@ public class UserProcessAwaiting implements Serializable{
     private String email;
     private String username;
     private String password;
+    private Long id;
 
     public String getFirstName() {
         return firstName;
@@ -47,5 +48,13 @@ public class UserProcessAwaiting implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -20,7 +20,7 @@ public class RestUserController {
     public JSONResponse editUser(@RequestBody UserProcessAwaiting user) {
         JSONResponse jsonResponse = new JSONResponse();
         try {
-            if(userService.editUser(user)) {
+            if(userService.editUser(user, true)) {
                 jsonResponse.setSuccess(true);
             } else {
                 jsonResponse.setSuccess(false);

@@ -1,7 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="sec"
-          uri="http://www.springframework.org/security/tags" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="header">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -20,6 +17,18 @@
                         <a class="navbar-brand" href="/">Police</a>
                     </div>
                     <div class="col-lg-6">
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <ul class="nav navbar-nav navbar-left">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-haspopup="true" aria-expanded="false">Admin
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/admin">Edit Users</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </sec:authorize>
                         <sec:authorize access="hasRole('ROLE_ANONYMOUS')">
                             <form class="navbar-form navbar-right">
                                 <button class="btn btn-primary" type="button" data-toggle="popover">Log In</button>

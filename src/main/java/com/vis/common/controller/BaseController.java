@@ -18,7 +18,7 @@ public class BaseController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = {"/", "/welcome**"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView defaultPage() {
 
         ModelAndView model = new ModelAndView();
@@ -29,12 +29,10 @@ public class BaseController {
 
     }
 
-    @RequestMapping(value = "/admin**", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminPage() {
 
         ModelAndView model = new ModelAndView();
-        model.addObject("title", "Spring Security Login Form - Database Authentication");
-        model.addObject("message", "This page is for ROLE_ADMIN only!");
         model.setViewName("admin");
 
         return model;

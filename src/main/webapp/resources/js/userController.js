@@ -2,10 +2,6 @@ $(document).ready(function () {
     initializeComponents();
 });
 
-$("#editForm").bind("ajax:complete", function (data) {
-    debugger;
-});
-
 function validateUserEditForm() {
     var firstName = $("#firstName");
     var lastname = $("#lastName");

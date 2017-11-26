@@ -8,6 +8,8 @@ import com.vis.common.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -30,14 +32,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean editUser(UserProcessAwaiting userToModify) {
-        User originalUser = securityService.getLoggedUser();
+    public boolean editUser(UserProcessAwaiting userToModify, boolean currentUser) {
+        User originalUser;
+
+        if(currentUser) {
+            originalUser = securityService.getLoggedUser();
+        } else {
+            originalUser = userDao.getUserById(userToModify.getId());
+        }
+
         if(hasUserDifferences(originalUser, userToModify)) {
             userDao.updateUser(userToModify,originalUser.getId());
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public List<User> getUsersBasedOnSearchCriteria(UserProcessAwaiting user) {
+        return userDao.getUsers(user);
     }
 
     private boolean hasUserDifferences(User user, UserProcessAwaiting userToModify) {
