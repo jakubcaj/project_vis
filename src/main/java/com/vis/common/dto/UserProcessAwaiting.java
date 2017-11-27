@@ -1,8 +1,9 @@
 package com.vis.common.dto;
 
-import com.vis.common.enums.Roles;
+import com.vis.common.enums.Role;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class UserProcessAwaiting implements Serializable{
     private String firstName;
@@ -11,7 +12,7 @@ public class UserProcessAwaiting implements Serializable{
     private String username;
     private String password;
     private Long id;
-    private Roles role;
+    private List<Role> roles;
 
     public String getFirstName() {
         return firstName;
@@ -61,11 +62,11 @@ public class UserProcessAwaiting implements Serializable{
         this.id = id;
     }
 
-    public Roles getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Roles role) {
-        this.role = role;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

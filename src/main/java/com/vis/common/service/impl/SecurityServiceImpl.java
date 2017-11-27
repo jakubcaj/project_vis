@@ -2,12 +2,15 @@ package com.vis.common.service.impl;
 
 import com.vis.common.dao.UserDao;
 import com.vis.common.domain.User;
+import com.vis.common.enums.Role;
 import com.vis.common.facade.AuthenticationFacade;
 import com.vis.common.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SecurityServiceImpl implements SecurityService {
@@ -37,5 +40,10 @@ public class SecurityServiceImpl implements SecurityService {
     public String hashPassword(String password) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder.encode(password);
+    }
+
+    @Override
+    public List<Role> getUserRoles(Long id) {
+        return userDao.getUserRoles(id);
     }
 }

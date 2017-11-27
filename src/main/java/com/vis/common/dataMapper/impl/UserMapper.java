@@ -6,24 +6,24 @@ import com.mysema.query.types.Expression;
 import com.vis.common.dataMapper.AbstractBaseMapper;
 import com.vis.common.dataMapper.BaseMapper;
 import com.vis.common.domain.User;
-import com.vis.common.enums.Roles;
 import com.vis.common.querydsl.dimension.QSQLUser;
-import com.vis.common.querydsl.keystone.QSQLRole;
-import com.vis.common.querydsl.keystone.QSQLUserRole;
+import com.vis.common.service.SecurityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper extends AbstractBaseMapper implements BaseMapper<User> {
 
-    private static final QSQLUser user = QSQLUser.user;
-    private static final QSQLUserRole userRole = QSQLUserRole.userRole;
-    private static final QSQLRole role = QSQLRole.role1;
+    @Autowired
+    SecurityService securityService;
 
-    public static Expression[] projection = {user.id, user.firstName, user.lastName, user.username, user.fullName, user.email, role.role};
+    private static final QSQLUser user = QSQLUser.user;
+
+    public static Expression[] projection = {user.id, user.firstName, user.lastName, user.username, user.fullName, user.email};
 
     @Override
     public SQLQuery getQuery(SQLQuery query) {
-        query.from(user)
-            .join(userRole).on(userRole.dimensionUserId.eq(user.id))
-            .join(role).on(role.id.eq(userRole.roleId));
+        query.from(user);
 
         return query;
     }
@@ -37,7 +37,7 @@ public class UserMapper extends AbstractBaseMapper implements BaseMapper<User> {
         resultUser.setUsername(tuple.get(user.username));
         resultUser.setFullName(tuple.get(user.fullName));
         resultUser.setEmail(tuple.get(user.email));
-        resultUser.setRole(Roles.getRole(tuple.get(role.role)));
+        resultUser.setRoles(securityService.getUserRoles(resultUser.getId()));
         return resultUser;
     }
 

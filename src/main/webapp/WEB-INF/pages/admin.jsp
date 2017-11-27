@@ -96,7 +96,7 @@
             </div>
             <div class="col-lg-8">
                 <div class="form-group">
-                    <select id="roleModal" class="form-control">
+                    <select id="roleModal" class="form-control" multiple>
                         <c:forEach var="item" items="${roles}">
                             <option value="${item.name()}">${item.name()}</option>
                         </c:forEach>

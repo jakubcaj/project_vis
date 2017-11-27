@@ -6,6 +6,7 @@ import com.mysema.query.sql.PostgresTemplates;
 import com.mysema.query.sql.RelationalPath;
 import com.mysema.query.sql.SQLQuery;
 import com.mysema.query.sql.SQLTemplates;
+import com.mysema.query.sql.dml.SQLDeleteClause;
 import com.mysema.query.sql.dml.SQLInsertClause;
 import com.mysema.query.sql.dml.SQLUpdateClause;
 import com.vis.common.dataMapper.BaseMapper;
@@ -54,6 +55,15 @@ public class BaseDao {
     SQLUpdateClause getSqlUpdateClause(RelationalPath entity) {
         try {
             return new SQLUpdateClause(dataSource.getConnection(), dialect, entity);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    SQLDeleteClause getSqlDeleteClause(RelationalPath entity) {
+        try {
+            return new SQLDeleteClause(dataSource.getConnection(), dialect, entity);
         } catch (SQLException e) {
             e.printStackTrace();
         }

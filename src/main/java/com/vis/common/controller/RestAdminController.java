@@ -43,6 +43,7 @@ public class RestAdminController {
                 jsonResponse.setErrorMessage("No changes made.");
             }
         }catch (Exception e) {
+            e.printStackTrace();
             jsonResponse.setSuccess(false);
             jsonResponse.setErrorMessage("There was an unexpected error during updating.");
         }

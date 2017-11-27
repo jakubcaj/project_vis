@@ -81,7 +81,7 @@ function searchUser() {
                             {"data": "lastName"},
                             {"data": "email"},
                             {"data": "username"},
-                            {"data": "role"},
+                            {"data": "roles"},
                             {
                                 "data": null,
                                 "defaultContent": "<button onclick='editUser(this)' class='btn btn-info'>Edit</button>"
@@ -122,14 +122,21 @@ function editUser(button) {
 
         }
     });
-     // var ss = $("#firstNameModal").val(data.firstName);
+
     var swalEl = $("#swal2-content");
     swalEl.find("#modalwindow").css('display','grid');
     swalEl.find("#firstNameModal").val(data.firstName);
     swalEl.find("#lastNameModal").val(data.lastName);
     swalEl.find("#emailModal").val(data.email);
     swalEl.find("#usernameModal").val(data.username);
-    swalEl.find("#roleModal option[value='"+ data.role+ "']").prop("selected", true);
+    $.each(data.roles, function (key, value) {
+        swalEl.find("#roleModal option[value='"+ value+ "']").prop("selected", true);
+    });
+    swalEl.find("#roleModal").multiselect({
+        enableFiltering: true,
+        maxHeight: 300,
+        dropUp: true
+    })
 
     // debugger;
 }
@@ -145,7 +152,7 @@ function editUserAjax(id) {
             lastName: swalEl.find("#lastNameModal").val(),
             email: swalEl.find("#emailModal").val(),
             username: swalEl.find("#usernameModal").val(),
-            role: swalEl.find("#roleModal").val(),
+            roles: swalEl.find("#roleModal").val(),
             id: id
         }),
         success: function (data) {

@@ -33,7 +33,16 @@ function registerForm() {
             }),
             success: function (data) {
                 if (data.success) {
-
+                    swal({
+                        title: "User Registered",
+                        type: "success"
+                    });
+                } else {
+                    swal({
+                        title: "Error",
+                        text: data.errorMessage,
+                        type: "error"
+                    });
                 }
             }
         });

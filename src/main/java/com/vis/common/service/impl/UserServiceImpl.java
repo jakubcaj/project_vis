@@ -3,12 +3,14 @@ package com.vis.common.service.impl;
 import com.vis.common.dao.UserDao;
 import com.vis.common.domain.User;
 import com.vis.common.dto.UserProcessAwaiting;
+import com.vis.common.enums.Role;
 import com.vis.common.service.SecurityService;
 import com.vis.common.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,8 +51,22 @@ public class UserServiceImpl implements UserService {
             userChanged = false;
         }
 
-        if (userToModify.getRole() != null && hasRoleChanged(originalUser, userToModify)) {
-            userDao.changeUserRole(userToModify.getRole(), originalUser.getId());
+        if (userToModify.getRoles() != null && hasRoleChanged(originalUser, userToModify)) {
+            List<Role> rolesToInsert = userToModify.getRoles().stream()
+                    .filter(x -> originalUser.getRoles().stream().noneMatch(y -> y.equals(x)))
+                    .collect(Collectors.toList());
+
+            List<Role> rolesToDelete = originalUser.getRoles().stream()
+                    .filter(x -> userToModify.getRoles().stream().noneMatch(y -> y.equals(x)))
+                    .collect(Collectors.toList());
+
+            if(!rolesToDelete.isEmpty()) {
+                userDao.deleteRolesToUser(rolesToDelete, originalUser.getId());
+            }
+
+            if(!rolesToInsert.isEmpty()) {
+                userDao.insertRolesToUser(rolesToInsert, originalUser.getId());
+            }
             userChanged = true;
         }
         return userChanged;
@@ -82,6 +98,6 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean hasRoleChanged(User user, UserProcessAwaiting userToModify) {
-        return !user.getRole().equals(userToModify.getRole());
+        return !user.getRoles().equals(userToModify.getRoles());
     }
 }

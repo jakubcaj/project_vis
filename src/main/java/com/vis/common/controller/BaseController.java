@@ -3,7 +3,7 @@ package com.vis.common.controller;
 import com.vis.common.domain.User;
 import com.vis.common.dto.JSONResponse;
 import com.vis.common.dto.UserProcessAwaiting;
-import com.vis.common.enums.Roles;
+import com.vis.common.enums.Role;
 import com.vis.common.service.SecurityService;
 import com.vis.common.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class BaseController {
 
         ModelAndView model = new ModelAndView();
         model.setViewName("admin");
-        model.addObject("roles", Roles.values());
+        model.addObject("roles", Role.values());
 
         return model;
 
