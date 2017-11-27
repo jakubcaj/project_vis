@@ -23,7 +23,7 @@ public class BaseController {
     public ModelAndView defaultPage() {
 
         ModelAndView model = new ModelAndView();
-        model.addObject("title", "Spring Security Login Form - Database Authentication");
+        model.addObject("title", "Spring Security Login Form - Dajtabase Authentication");
 
         model.setViewName("hello");
         return model;
