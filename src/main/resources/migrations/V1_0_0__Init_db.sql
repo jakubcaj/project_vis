@@ -1,6 +1,6 @@
 ------------ DIMENSION
-CREATE SCHEMA dimension;
-CREATE SCHEMA keystone;
+-- CREATE SCHEMA dimension;
+-- CREATE SCHEMA keystone;
 
 CREATE SEQUENCE IF NOT EXISTS dimension.user_id_seq;
 CREATE TABLE dimension.user (
@@ -47,6 +47,8 @@ CREATE TABLE keystone.user_role (
 INSERT INTO dimension.user (username, email, first_name, last_name, full_name)
 VALUES ('jcajka', 'jakubcaj@gmail.com', 'Jakub', 'Cajka', 'Jakub Cajka');
 
-INSERT INTO keystone.user_auth (dimension_user_id, username, password) VALUES (1, 'jcajka', 'jcajka');
-INSERT INTO keystone.role (role, description) VALUES ('ADMIN', 'Can do anything');
+INSERT INTO keystone.user_auth (dimension_user_id, username, password) VALUES (1, 'jcajka', '$2a$10$C1yQmsNoszyN/D6pYybix.9glN2nv6j7JYxBV68l/8DywC9HWnkCq');
+INSERT INTO keystone.role (role, description) VALUES ('ROLE_ADMIN', 'Can do anything');
 INSERT INTO keystone.user_role (dimension_user_id, role_id) VALUES (1, 1);
+
+INSERT into keystone.role(role, description) values('ROLE_USER', 'Standard user, can not do very much')

@@ -2,6 +2,7 @@ package com.vis.common.dao;
 
 import com.vis.common.domain.User;
 import com.vis.common.dto.UserProcessAwaiting;
+import com.vis.common.enums.Roles;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface UserDao {
     User updateUser(UserProcessAwaiting userProcessAwaiting, Long id);
 
     List<User> getUsers(UserProcessAwaiting userProcessAwaiting);
+
+    void changeUserRole(Roles role, Long id);
 }

@@ -45,20 +45,12 @@ function restoreBordersSearchForm() {
     var firstName = $("#firstName");
     var lastname = $("#lastName");
     var email = $("#email");
-    var username = $("#username");
+    var username = $("#usernameS");
 
-    if (firstName.style !== undefined) {
-        firstName.style.removeProperty("border-color");
-    }
-    if (lastname.style !== undefined) {
-        lastname.style.removeProperty("border-color");
-    }
-    if (email.style !== undefined) {
-        email.style.removeProperty("border-color");
-    }
-    if (username.style !== undefined) {
-        username.style.removeProperty("border-color");
-    }
+    firstName.css("border-color", "");
+    lastname.css("border-color", "");
+    email.css("border-color", "");
+    username.css("border-color", "");
 }
 
 function initializeAdminComponents() {
@@ -89,6 +81,7 @@ function searchUser() {
                             {"data": "lastName"},
                             {"data": "email"},
                             {"data": "username"},
+                            {"data": "role"},
                             {
                                 "data": null,
                                 "defaultContent": "<button onclick='editUser(this)' class='btn btn-info'>Edit</button>"
@@ -136,6 +129,8 @@ function editUser(button) {
     swalEl.find("#lastNameModal").val(data.lastName);
     swalEl.find("#emailModal").val(data.email);
     swalEl.find("#usernameModal").val(data.username);
+    swalEl.find("#roleModal option[value='"+ data.role+ "']").prop("selected", true);
+
     // debugger;
 }
 
@@ -150,6 +145,7 @@ function editUserAjax(id) {
             lastName: swalEl.find("#lastNameModal").val(),
             email: swalEl.find("#emailModal").val(),
             username: swalEl.find("#usernameModal").val(),
+            role: swalEl.find("#roleModal").val(),
             id: id
         }),
         success: function (data) {

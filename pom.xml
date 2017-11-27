@@ -159,6 +159,8 @@
                     </locations>
                     <schemas>
                         <schema>public</schema>
+                        <schema>dimension</schema>
+                        <schema>keystone</schema>
                     </schemas>
                     <cleanDisabled>true</cleanDisabled>
                     <configFile>${project.basedir}/src/main/resources/application.properties</configFile>

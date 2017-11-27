@@ -1,14 +1,17 @@
 package com.vis.common.domain;
 
+import com.vis.common.enums.Roles;
+
 import java.io.Serializable;
 
-public class User {
+public class User implements Serializable{
     private Long id;
     private String firstName;
     private String lastName;
     private String fullName;
     private String email;
     private String username;
+    private Roles role;
 
     public Long getId() {
         return id;
@@ -56,5 +59,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 }

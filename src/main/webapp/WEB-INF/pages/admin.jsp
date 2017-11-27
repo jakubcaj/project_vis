@@ -49,6 +49,7 @@
                         <th>Last Name</th>
                         <th>Email</th>
                         <th>UserName</th>
+                        <th>Role</th>
                         <th>Edit</th>
                     </tr>
                     </thead>
@@ -87,6 +88,20 @@
             </div>
             <div class="col-lg-8">
                 <input id='usernameModal' class='form-control'>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <label for='roleModal'>Role: </label>
+            </div>
+            <div class="col-lg-8">
+                <div class="form-group">
+                    <select id="roleModal" class="form-control">
+                        <c:forEach var="item" items="${roles}">
+                            <option value="${item.name()}">${item.name()}</option>
+                        </c:forEach>
+                    </select>
+                </div>
             </div>
         </div>
     </div>

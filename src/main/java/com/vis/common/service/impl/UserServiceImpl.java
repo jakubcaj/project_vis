@@ -34,19 +34,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean editUser(UserProcessAwaiting userToModify, boolean currentUser) {
         User originalUser;
+        boolean userChanged;
 
-        if(currentUser) {
+        if (currentUser) {
             originalUser = securityService.getLoggedUser();
         } else {
             originalUser = userDao.getUserById(userToModify.getId());
         }
 
-        if(hasUserDifferences(originalUser, userToModify)) {
-            userDao.updateUser(userToModify,originalUser.getId());
-            return true;
+        if (hasUserDifferences(originalUser, userToModify)) {
+            userDao.updateUser(userToModify, originalUser.getId());
+            userChanged = true;
         } else {
-            return false;
+            userChanged = false;
         }
+
+        if (userToModify.getRole() != null && hasRoleChanged(originalUser, userToModify)) {
+            userDao.changeUserRole(userToModify.getRole(), originalUser.getId());
+            userChanged = true;
+        }
+        return userChanged;
     }
 
     @Override
@@ -55,22 +62,26 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean hasUserDifferences(User user, UserProcessAwaiting userToModify) {
-        if(!user.getFirstName().equals(userToModify.getFirstName())) {
+        if (!user.getFirstName().equals(userToModify.getFirstName())) {
             return true;
         }
 
-        if(!user.getLastName().equals(userToModify.getLastName())) {
+        if (!user.getLastName().equals(userToModify.getLastName())) {
             return true;
         }
 
-        if(!user.getEmail().equals(userToModify.getEmail())) {
+        if (!user.getEmail().equals(userToModify.getEmail())) {
             return true;
         }
 
-        if(!user.getUsername().equals(userToModify.getUsername())) {
+        if (!user.getUsername().equals(userToModify.getUsername())) {
             return true;
         }
 
         return false;
+    }
+
+    private boolean hasRoleChanged(User user, UserProcessAwaiting userToModify) {
+        return !user.getRole().equals(userToModify.getRole());
     }
 }

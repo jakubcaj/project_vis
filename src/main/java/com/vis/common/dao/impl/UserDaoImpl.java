@@ -2,16 +2,15 @@ package com.vis.common.dao.impl;
 
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.sql.*;
-import com.mysema.query.types.expr.BooleanExpression;
 import com.vis.common.dao.UserDao;
 import com.vis.common.dataMapper.impl.UserMapper;
 import com.vis.common.domain.User;
 import com.vis.common.dto.UserProcessAwaiting;
+import com.vis.common.enums.Roles;
 import com.vis.common.querydsl.dimension.QSQLUser;
 import com.vis.common.querydsl.keystone.QSQLRole;
 import com.vis.common.querydsl.keystone.QSQLUserAuth;
 import com.vis.common.querydsl.keystone.QSQLUserRole;
-import org.springframework.security.core.userdetails.memory.UserMap;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,6 +91,14 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         query.where(booleanBuilder);
 
         return getResult(query, userMapper, UserMapper.projection);
+    }
+
+    @Override
+    public void changeUserRole(Roles role, Long id) {
+        getSqlUpdateClause(userRole)
+                .set(userRole.roleId, getRoleId(role.getRoleString()))
+                .where(userRole.dimensionUserId.eq(id))
+                .execute();
     }
 
     private void registerUserAuth(Long id, UserProcessAwaiting userP) {
