@@ -54,6 +54,14 @@ public class BaseController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/profile")
+    public ModelAndView createProfile() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("profile/createProfile");
+        return modelAndView;
+    }
+
+
 //    @RequestMapping(value = "/login", method = RequestMethod.GET)
 //    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
 //                              @RequestParam(value = "logout", required = false) String logout) {

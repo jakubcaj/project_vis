@@ -29,6 +29,18 @@
                                 </li>
                             </ul>
                         </sec:authorize>
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_PROFILES')">
+                            <ul class="nav navbar-nav navbar-left">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-haspopup="true" aria-expanded="false">Profiles
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/profile">Add profile</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </sec:authorize>
                         <sec:authorize access="hasRole('ROLE_ANONYMOUS')">
                             <form class="navbar-form navbar-right">
                                 <button class="btn btn-primary" type="button" data-toggle="popover">Log In</button>

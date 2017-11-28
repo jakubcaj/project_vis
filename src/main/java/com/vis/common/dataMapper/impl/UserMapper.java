@@ -24,7 +24,6 @@ public class UserMapper extends AbstractBaseMapper implements BaseMapper<User> {
     @Override
     public SQLQuery getQuery(SQLQuery query) {
         query.from(user);
-
         return query;
     }
 
