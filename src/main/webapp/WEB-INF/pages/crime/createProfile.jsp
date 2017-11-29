@@ -2,9 +2,9 @@
 
 <html>
 <head>
-    <title>Edit User</title>
+    <title>Create Profile</title>
     <%@include file="../../fragment/resourcesFragment.jsp" %>
-    <script src="/resources/js/profile/createProfileController.js"></script>
+    <script src="/resources/js/crime/createProfileController.js"></script>
 </head>
 <body>
 <%@include file="../../fragment/headerFragment.jsp" %>
@@ -41,7 +41,7 @@
                     <input id="phone" class="form-control" name="birthDate">
                 </div>
             </div>
-            <button id="editFormButton" type="button" class="btn btn-primary subButton">Submit</button>
+            <button id="createProfileButton" type="button" class="btn btn-primary subButton">Submit</button>
         </div>
     </div>
 </div>

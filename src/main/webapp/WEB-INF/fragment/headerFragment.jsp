@@ -37,6 +37,7 @@
                                         <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="/profile">Add profile</a></li>
+                                        <li><a href="/crime">Add profile</a></li>
                                     </ul>
                                 </li>
                             </ul>

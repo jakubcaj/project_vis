@@ -57,7 +57,14 @@ public class BaseController {
     @RequestMapping(value = "/profile")
     public ModelAndView createProfile() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("profile/createProfile");
+        modelAndView.setViewName("crime/createProfile");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/crime")
+    public ModelAndView createCrime() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("crime/createCrime");
         return modelAndView;
     }
 

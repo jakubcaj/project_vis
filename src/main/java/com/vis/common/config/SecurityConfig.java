@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/*").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/user*/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+                .antMatchers("/profile*/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_PROFILES')")
 //                .anyRequest().access("!hasRole('ROLE_ANONYMOUS')")
                 .and()
                 .formLogin().loginProcessingUrl("/auth").failureUrl("/login?error").defaultSuccessUrl("/")
