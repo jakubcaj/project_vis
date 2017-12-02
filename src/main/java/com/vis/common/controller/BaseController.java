@@ -1,14 +1,18 @@
 package com.vis.common.controller;
 
+import com.vis.common.domain.Crime;
 import com.vis.common.domain.User;
 import com.vis.common.dto.JSONResponse;
 import com.vis.common.dto.UserProcessAwaiting;
 import com.vis.common.enums.Role;
+import com.vis.common.service.ProfileService;
 import com.vis.common.service.SecurityService;
 import com.vis.common.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.text.SimpleDateFormat;
 
 @RestController
 public class BaseController {
@@ -18,6 +22,9 @@ public class BaseController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ProfileService profileService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView defaultPage() {
@@ -65,6 +72,28 @@ public class BaseController {
     public ModelAndView createCrime() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("crime/createCrime");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/crime/search")
+    public ModelAndView searchCrime() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("crime/searchCrime");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/crime/edit/{crimeId}", method = RequestMethod.GET)
+    public ModelAndView editCrime(@PathVariable(value = "crimeId") Long crimeId ){
+        ModelAndView modelAndView = new ModelAndView();
+        Crime crime = profileService.getCrime(crimeId);
+        modelAndView.addObject("crimeId", crime.getId());
+        modelAndView.addObject("shortDescription", crime.getShortDescription());
+        modelAndView.addObject("dateCommitted", new SimpleDateFormat("yyyy-MM-dd")
+                .format(crime.getDateCommitted()));
+        modelAndView.addObject("description", crime.getDescription());
+        modelAndView.addObject("victims", crime.getVictims());
+        modelAndView.addObject("suspects", crime.getSuspects());
+        modelAndView.setViewName("crime/editCrime");
         return modelAndView;
     }
 

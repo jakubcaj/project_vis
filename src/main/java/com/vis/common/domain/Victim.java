@@ -4,7 +4,7 @@ public class Victim {
     private Long id;
     private Profile profile;
     private String Statement;
-    private boolean injured;
+    private Boolean injured;
 
     public Long getId() {
         return id;
@@ -30,11 +30,11 @@ public class Victim {
         Statement = statement;
     }
 
-    public boolean isInjured() {
+    public Boolean isInjured() {
         return injured;
     }
 
-    public void setInjured(boolean injured) {
+    public void setInjured(Boolean injured) {
         this.injured = injured;
     }
 }

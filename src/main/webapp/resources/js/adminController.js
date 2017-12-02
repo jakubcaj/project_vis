@@ -1,4 +1,3 @@
-// import s from 'swal-forms';
 var TABLE;
 
 $(document).ready(function () {

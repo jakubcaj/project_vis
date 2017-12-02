@@ -1,12 +1,13 @@
 package com.vis.common.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class Crime implements Serializable{
     private Long id;
-    private Date dateCommited;
+    private String shortDescription;
+    private Timestamp dateCommitted;
     private String description;
     private boolean releasedToPublic;
     private List<Profile> suspects;
@@ -21,12 +22,20 @@ public class Crime implements Serializable{
         this.id = id;
     }
 
-    public Date getDateCommited() {
-        return dateCommited;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public void setDateCommited(Date dateCommited) {
-        this.dateCommited = dateCommited;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public Timestamp getDateCommitted() {
+        return dateCommitted;
+    }
+
+    public void setDateCommitted(Timestamp dateCommitted) {
+        this.dateCommitted = dateCommitted;
     }
 
     public String getDescription() {
