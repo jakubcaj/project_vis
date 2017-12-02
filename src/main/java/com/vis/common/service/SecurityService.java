@@ -16,4 +16,6 @@ public interface SecurityService {
     String hashPassword(String password);
 
     List<Role> getUserRoles(Long id);
+
+    boolean hasLoggedUserRole(String role);
 }

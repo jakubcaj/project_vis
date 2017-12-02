@@ -9,7 +9,7 @@ public class Crime implements Serializable{
     private String shortDescription;
     private Timestamp dateCommitted;
     private String description;
-    private boolean releasedToPublic;
+    private Timestamp releasedToPublic;
     private List<Profile> suspects;
     private List<Victim> victims;
     private List<User> officers;
@@ -46,11 +46,11 @@ public class Crime implements Serializable{
         this.description = description;
     }
 
-    public boolean isReleasedToPublic() {
+    public Timestamp isReleasedToPublic() {
         return releasedToPublic;
     }
 
-    public void setReleasedToPublic(boolean releasedToPublic) {
+    public void setReleasedToPublic(Timestamp releasedToPublic) {
         this.releasedToPublic = releasedToPublic;
     }
 

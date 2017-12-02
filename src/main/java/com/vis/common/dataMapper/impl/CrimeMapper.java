@@ -19,7 +19,7 @@ public class CrimeMapper extends AbstractBaseMapper implements BaseMapper<Crime>
 
     private static final QSQLCrime crime = QSQLCrime.crime;
 
-    public static Expression[] projection = {crime.id, crime.shortDescription, crime.dateCommitted, crime.description};
+    public static Expression[] projection = {crime.id, crime.shortDescription, crime.dateCommitted, crime.description, crime.releasedToPublic};
 
     @Override
     public SQLQuery getQuery(SQLQuery query) {
@@ -34,6 +34,7 @@ public class CrimeMapper extends AbstractBaseMapper implements BaseMapper<Crime>
         result.setShortDescription(tuple.get(crime.shortDescription));
         result.setDescription(tuple.get(crime.description));
         result.setDateCommitted(tuple.get(crime.dateCommitted));
+        result.setReleasedToPublic(tuple.get(crime.releasedToPublic));
         result.setSuspects(profileDao.getSuspects(result.getId()));
         result.setVictims(profileDao.getVictims(result.getId()));
 

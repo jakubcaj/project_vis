@@ -7,6 +7,7 @@
 <body>
 <%@include file="../../fragment/headerFragment.jsp" %>
 <div class="row">
+    <input style="display: none" id="crimeId" value="${crimeId}">
     <div class="col-lg-6 col-lg-offset-3 bodyMain">
         <div class="editForm">
             <h1>Edit Crime</h1>
@@ -71,7 +72,7 @@
             <hr/>
             <div class="row">
                 <div class="col-lg-3 col-lg-offset-1">
-                    <button id="ReleaseToPublicBtn" type="button" class="btn btn-success subButton">Release to public</button>
+                    <button id="releaseToPublicBtn" type="button" class="btn btn-success subButton">Release to public</button>
                 </div>
             </div>
         </div>

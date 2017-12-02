@@ -19,4 +19,8 @@ public interface ProfileService {
     Crime getCrime(Long id);
 
     List<Crime> getCrime(String term);
+
+    void releaseToPublic(Long id);
+
+    List<Crime> getFirstNCrimesReleasedToPublic(int n);
 }

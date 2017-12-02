@@ -46,4 +46,14 @@ public class ProfileServiceImpl implements ProfileService {
         return profileDao.getCrime(term);
     }
 
+    @Override
+    public void releaseToPublic(Long id) {
+        profileDao.releaseToPublic(id);
+    }
+
+    @Override
+    public List<Crime> getFirstNCrimesReleasedToPublic(int n) {
+        return profileDao.getFirstNCrimesReleasedToPublic(n);
+    }
+
 }

@@ -22,4 +22,8 @@ public interface ProfileDao {
     List<Profile> getSuspects(Long crimeId);
 
     List<Victim> getVictims(Long crimeId);
+
+    void releaseToPublic(Long id);
+
+    List<Crime> getFirstNCrimesReleasedToPublic(int n);
 }

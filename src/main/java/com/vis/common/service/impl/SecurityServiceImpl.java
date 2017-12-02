@@ -46,4 +46,10 @@ public class SecurityServiceImpl implements SecurityService {
     public List<Role> getUserRoles(Long id) {
         return userDao.getUserRoles(id);
     }
+
+    @Override
+    public boolean hasLoggedUserRole(String role) {
+        return authenticationFacade.getAuthentication().getAuthorities().stream()
+                .anyMatch(x -> x.toString().equals(role) || x.toString().equals(Role.ADMIN.getRoleString()));
+    }
 }

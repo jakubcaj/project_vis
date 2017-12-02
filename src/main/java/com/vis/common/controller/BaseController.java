@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 @RestController
 public class BaseController {
@@ -31,7 +32,8 @@ public class BaseController {
 
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring Security Login Form - Dajtabase Authentication");
-
+        List<Crime> crimesReleasedToPublic = profileService.getFirstNCrimesReleasedToPublic(5);
+        model.addObject("crimes", crimesReleasedToPublic);
         model.setViewName("hello");
         return model;
 
@@ -83,7 +85,7 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/crime/edit/{crimeId}", method = RequestMethod.GET)
-    public ModelAndView editCrime(@PathVariable(value = "crimeId") Long crimeId ){
+    public ModelAndView editCrime(@PathVariable(value = "crimeId") Long crimeId) {
         ModelAndView modelAndView = new ModelAndView();
         Crime crime = profileService.getCrime(crimeId);
         modelAndView.addObject("crimeId", crime.getId());
@@ -121,7 +123,7 @@ public class BaseController {
     JSONResponse registerUser(@RequestBody UserProcessAwaiting userProcessAwaiting) {
         JSONResponse response = new JSONResponse();
         try {
-            if(userService.isUserExisting(userProcessAwaiting.getUsername())) {
+            if (userService.isUserExisting(userProcessAwaiting.getUsername())) {
                 response.setSuccess(false);
                 response.setErrorMessage("Username is already existing.");
             } else {

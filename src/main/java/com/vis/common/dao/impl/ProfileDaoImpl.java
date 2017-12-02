@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional
@@ -125,5 +127,21 @@ public class ProfileDaoImpl extends BaseDao implements ProfileDao {
         query.where(victim.dimensionCrimeId.eq(crimeId));
 
         return getResult(query, victimMapper, VictimMapper.projection);
+    }
+
+    @Override
+    public void releaseToPublic(Long id) {
+        getSqlUpdateClause(crime)
+                .set(crime.releasedToPublic, Timestamp.valueOf(LocalDateTime.now())).where(crime.id.eq(id)).execute();
+    }
+
+    @Override
+    public List<Crime> getFirstNCrimesReleasedToPublic(int n) {
+        SQLQuery query = crimeMapper.getQuery(query());
+        query.where(crime.releasedToPublic.isNotNull());
+        query.orderBy(crime.releasedToPublic.desc());
+        query.limit(n);
+
+        return getResult(query, crimeMapper, CrimeMapper.projection);
     }
 }
