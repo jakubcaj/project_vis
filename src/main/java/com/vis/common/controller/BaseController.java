@@ -9,9 +9,13 @@ import com.vis.common.service.ProfileService;
 import com.vis.common.service.SecurityService;
 import com.vis.common.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -138,6 +142,21 @@ public class BaseController {
             response.setErrorMessage("There was an unexpected error during registration.");
         }
         return response;
+    }
+
+    @RequestMapping(value = "/customlogin", method = RequestMethod.POST)
+    public JSONResponse login(HttpServletRequest request, HttpServletResponse response,
+                              @RequestBody UserProcessAwaiting user, BindingResult result) {
+        JSONResponse jsonResponse = new JSONResponse();
+
+        try {
+            request.login(user.getUsername(), user.getPassword());
+            jsonResponse.setSuccess(true);
+
+        } catch (ServletException authenticationFailed) {
+            jsonResponse.setSuccess(false);
+        }
+        return jsonResponse;
     }
 
 
