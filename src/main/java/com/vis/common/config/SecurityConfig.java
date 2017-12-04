@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/crime*/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_PROFILES')")
 //                .anyRequest().access("!hasRole('ROLE_ANONYMOUS')")
                 .and()
-                .formLogin().loginProcessingUrl("/auth").failureUrl("/login?error").defaultSuccessUrl("/")
+                .formLogin().loginProcessingUrl("/auth").failureUrl("/").defaultSuccessUrl("/")
                 .usernameParameter("username").passwordParameter("password")
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/")
