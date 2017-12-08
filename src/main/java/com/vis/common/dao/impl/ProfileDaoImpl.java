@@ -113,6 +113,16 @@ public class ProfileDaoImpl extends BaseDao implements ProfileDao {
     }
 
     @Override
+    public void updateCrime(Crime crimeT) {
+        getSqlUpdateClause(crime)
+                .set(crime.shortDescription, crimeT.getShortDescription())
+                .set(crime.description, crimeT.getDescription())
+                .set(crime.releasedToPublic, crimeT.getReleasedToPublic())
+                .set(crime.dateCommitted, crimeT.getDateCommitted())
+                .where(crime.id.eq(crimeT.getId())).execute();
+    }
+
+    @Override
     public List<Profile> getSuspects(Long crimeId) {
         SQLQuery query = query().from(suspect);
         query.join(profile).on(profile.id.eq(suspect.dimensionProfileId));

@@ -19,6 +19,8 @@ public interface ProfileDao {
 
     List<Crime> getCrime(String term);
 
+    void updateCrime(Crime crime);
+
     List<Profile> getSuspects(Long crimeId);
 
     List<Victim> getVictims(Long crimeId);

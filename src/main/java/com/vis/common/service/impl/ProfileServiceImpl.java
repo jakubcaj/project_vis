@@ -56,4 +56,31 @@ public class ProfileServiceImpl implements ProfileService {
         return profileDao.getFirstNCrimesReleasedToPublic(n);
     }
 
+    @Override
+    public void insertUpdateCrime(Crime crime) {
+        if(getCrime(crime.getId()) == null) {
+            CrimeDto crimeDto = new CrimeDto();
+
+            crimeDto.setShortDescription(crime.getShortDescription());
+            crimeDto.setDateCommitted(crime.getDateCommitted());
+            crimeDto.setDescription(crime.getDescription());
+
+            crimeDto.setSuspects(crime.getSuspects().stream().map(x -> {
+                CrimeProfileDto profileDto = new CrimeProfileDto();
+                profileDto.setId(x.getId());
+                return profileDto;
+            }).collect(Collectors.toList()));
+
+            crimeDto.setVictims(crime.getVictims().stream().map(x -> {
+                CrimeProfileDto profileDto = new CrimeProfileDto();
+                profileDto.setId(x.getId());
+                return profileDto;
+            }).collect(Collectors.toList()));
+
+            createCrime(crimeDto);
+        } else {
+            profileDao.updateCrime(crime);
+        }
+    }
+
 }

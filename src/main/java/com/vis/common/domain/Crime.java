@@ -46,7 +46,7 @@ public class Crime implements Serializable{
         this.description = description;
     }
 
-    public Timestamp isReleasedToPublic() {
+    public Timestamp getReleasedToPublic() {
         return releasedToPublic;
     }
 

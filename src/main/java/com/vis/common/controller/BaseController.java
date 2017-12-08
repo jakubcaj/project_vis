@@ -1,5 +1,6 @@
 package com.vis.common.controller;
 
+import com.thoughtworks.xstream.XStream;
 import com.vis.common.domain.Crime;
 import com.vis.common.domain.User;
 import com.vis.common.dto.JSONResponse;
@@ -9,6 +10,9 @@ import com.vis.common.service.ProfileService;
 import com.vis.common.service.SecurityService;
 import com.vis.common.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -158,6 +163,4 @@ public class BaseController {
         }
         return jsonResponse;
     }
-
-
 }

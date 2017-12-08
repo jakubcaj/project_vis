@@ -23,4 +23,6 @@ public interface ProfileService {
     void releaseToPublic(Long id);
 
     List<Crime> getFirstNCrimesReleasedToPublic(int n);
+
+    void insertUpdateCrime(Crime crime);
 }
